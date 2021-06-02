@@ -180,7 +180,8 @@ class DataSilo:
 
             desc = f"Preprocessing Dataset"
             if filename:
-                desc += f" {filename}"
+                len_ = len(dicts)
+                desc += f" {filename} {len_}"
             with tqdm(total=len(dicts), unit=' Dicts', desc=desc) as pbar:
                 for dataset, tensor_names, problematic_samples in results:
                     datasets.append(dataset)
@@ -188,7 +189,6 @@ class DataSilo:
                     pbar.update(min(multiprocessing_chunk_size, pbar.total-pbar.n))
                     #pbar.update(len(datasets))
                     problematic_ids_all.update(problematic_samples)
-            logger.info(f"Length of datasets {len(datasets)}")
 
             self.processor.log_problematic(problematic_ids_all)
             # _dataset_from_chunk can return a None in cases where downsampling has occurred
