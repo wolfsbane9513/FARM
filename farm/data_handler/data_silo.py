@@ -186,7 +186,7 @@ class DataSilo:
                     datasets.append(dataset)
                     # update progress bar (last step can have less dicts than actual chunk_size)
                     #pbar.update(min(multiprocessing_chunk_size, pbar.total-pbar.n))
-                    pbar.update(len(datasets),min(multiprocessing_chunk_size, pbar.total-pbar.n))
+                    pbar.update(multiprocessing_chunk_size, pbar.total-pbar.n)
                     problematic_ids_all.update(problematic_samples)
 
             self.processor.log_problematic(problematic_ids_all)
